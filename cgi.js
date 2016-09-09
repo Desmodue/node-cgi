@@ -129,9 +129,14 @@ function cgi(cgiBin, options) {
           // Don't set the 'Status' header. It's special, and should be
           // used to set the HTTP response code below.
           if (header.key === 'Status') return;
-          res.setHeader(header.key, header.value);
+          try {
+            res.setHeader(header.key, header.value);
+            throw err
+          } catch (err) {
+            // handle the error safely
+            console.error(err, header.key, header.value)
+          }
         });
-
         // set the response status code
         res.statusCode = parseInt(headers.status, 10) || 200;
 
