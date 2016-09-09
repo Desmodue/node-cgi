@@ -131,7 +131,7 @@ function cgi(cgiBin, options) {
           if (header.key === 'Status') return;
           try {
             res.setHeader(header.key, header.value);
-            throw err
+            var err = new Error('Set Header Failed');
           } catch (err) {
             // handle the error safely
             console.error(err, header.key, header.value)
